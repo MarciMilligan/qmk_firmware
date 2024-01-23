@@ -484,6 +484,12 @@ bool process_record_quantum(keyrecord_t *record) {
 }
 
 void set_single_persistent_default_layer(uint8_t default_layer) {
+    // Do nothing if layer is already default
+    if ((layer_state_t)1 << default_layer == default_layer_state)
+    {
+        return;
+    }
+
 #if defined(AUDIO_ENABLE) && defined(DEFAULT_LAYER_SONGS)
     PLAY_SONG(default_layer_songs[default_layer]);
 #endif
